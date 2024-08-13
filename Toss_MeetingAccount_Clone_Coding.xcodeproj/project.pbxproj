@@ -12,7 +12,7 @@
 		5AA2E0D62C6B1CF400334C1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AA2E0D52C6B1CF400334C1B /* Assets.xcassets */; };
 		5AA2E0D92C6B1CF400334C1B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AA2E0D82C6B1CF400334C1B /* Preview Assets.xcassets */; };
 		5AA2E0E12C6B1E8E00334C1B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA2E0E02C6B1E8E00334C1B /* Color+Extension.swift */; };
-		5AA2E0E32C6B2E6300334C1B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5AA2E0E22C6B2E6300334C1B /* .gitignore */; };
+		5AA2E0E52C6B2F1B00334C1B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5AA2E0E42C6B2F1B00334C1B /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,7 +22,7 @@
 		5AA2E0D52C6B1CF400334C1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AA2E0D82C6B1CF400334C1B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5AA2E0E02C6B1E8E00334C1B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
-		5AA2E0E22C6B2E6300334C1B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5AA2E0E42C6B2F1B00334C1B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +39,7 @@
 		5AA2E0C52C6B1CF300334C1B = {
 			isa = PBXGroup;
 			children = (
-				5AA2E0E22C6B2E6300334C1B /* .gitignore */,
+				5AA2E0E42C6B2F1B00334C1B /* .gitignore */,
 				5AA2E0D02C6B1CF300334C1B /* Toss_MeetingAccount_Clone_Coding */,
 				5AA2E0CF2C6B1CF300334C1B /* Products */,
 			);
@@ -140,7 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AA2E0D92C6B1CF400334C1B /* Preview Assets.xcassets in Resources */,
-				5AA2E0E32C6B2E6300334C1B /* .gitignore in Resources */,
+				5AA2E0E52C6B2F1B00334C1B /* .gitignore in Resources */,
 				5AA2E0D62C6B1CF400334C1B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
