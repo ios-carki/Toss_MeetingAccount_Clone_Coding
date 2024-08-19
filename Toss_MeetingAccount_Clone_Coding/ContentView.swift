@@ -12,112 +12,136 @@ struct ContentView: View {
     @State private var offsetY: CGFloat = CGFloat()
     @State private var headerHeight: CGFloat = CGFloat()
     @State private var initOffsetY: CGFloat? = nil
+    var onRefresh: () -> Void
     
     var body: some View {
-        NavigationView(content: {
-            GeometryReader { screenGeometry in
+        GeometryReader { screenGeometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
                 
-                ZStack {
-                    Color.clear.ignoresSafeArea()
-                    
+                VStack {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 0.0) {
-                            
-                            Color.black.opacity(0)                         // Test if we are in Center! >> change Color.clear to Color.blue and uncomment down code for Capsule() to see it!
-                                .frame(height: UIScreen.main.bounds.height / 3)
-                                .overlay( HeaderView(isPresented: $isPresented)
-                                    .frame(height: UIScreen.main.bounds.height / 3)
-                                    .background( GeometryReader { proxy in Color.clear.onAppear { headerHeight = proxy.size.height } } )
-                                    .offset(y: headerHeight + screenGeometry.safeAreaInsets.top - offsetY))
+                            Color.clear
+                                .frame(height: headerHeight)
+                                .overlay(
+                                    VStack(spacing: 0) {
+                                        Image("image")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: screenGeometry.size.width, height: 400)
+                                            .ignoresSafeArea(edges: .top)
+                                            .offset(y: headerHeight + screenGeometry.safeAreaInsets.top - offsetY)
+                                            .frame(height: 400)
+                                    }
+                                )
                             
                             ZStack {
-                                Color.backgroundColor.cornerRadius(20.0).shadow(color: .black.opacity(0.2), radius: 15, x: 0.0, y: 0.0)
+                                Color.black.cornerRadius(35).shadow(color: .black.opacity(0.2), radius: 15, x: 0.0, y: 0.0)
                                     .padding(.bottom, -50).ignoresSafeArea()
                                 
                                 VStack {
-                                    ForEach((0...30), id: \.self) { item in
-                                        Text("item " + item.description)
-                                            .foregroundColor(.white)
-                                        Divider()
-                                            .padding(.horizontal)
-                                    }
+                                    //Handle
+                                    Rectangle()
+                                        .foregroundColor(.clear)
+                                        .frame(width: 48, height: 4)
+                                        .background(Color(red: 0.52, green: 0.52, blue: 0.52))
+                                        .cornerRadius(30)
                                     
-                                    Spacer()
+                                    
+                                    HStack(spacing: 12) {
+                                        VStack {
+                                            Image(systemName: "chevron.left")
+                                        }
+                                        .padding(.all, 4)
+                                        .background(Color.white)
+                                        .frame(width: 25, height: 25)
+                                        
+                                        Text("오늘 날짜")
+                                            .frame(maxWidth: .infinity, alignment: .center)
+                                        
+                                        VStack {
+                                            Image(systemName: "chevron.right")
+                                        }
+                                        .padding(.all, 4)
+                                        .background(Color.white)
+                                        .frame(width: 25, height: 25)
+                                    }
+                                    .padding(.top, 8)
+                                    .padding(.horizontal, 16)
+                                    
+                                    HStack {
+                                        Text("선택 날짜: 2024.03.01")
+                                            .foregroundColor(.white)
+                                        Spacer()
+                                        Button(action: {
+                                            print("오늘로 이동")
+                                        }, label: {
+                                            Text("오늘로 이동")
+                                        })
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                    .padding(.horizontal, 16)
+                                    
+                                    Divider()
+                                    
+                                    VStack {
+                                        ForEach(0..<100, id: \.self) { data in
+                                            Text(String(data))
+                                                .foregroundColor(.red)
+                                        }
+                                        Spacer()
+                                    }
                                 }
-                                .padding(.top, 16)
                                 .frame(minHeight: 700)
+                                .padding(.top)
                             }
                             .overlay(
                                 GeometryReader { proxy in
                                     Color.clear
                                         .onChange(of: proxy.frame(in: .global).minY) { newValue in
-                                            self.initOffsetY = newValue
+//                                                print("proxy.frame(in: .global).minY: ", proxy.frame(in: .global).minY)
+//                                                print("NewValue: ", newValue)
                                             offsetY = newValue
+                                            self.initOffsetY = newValue
+//                                                if self.initOffsetY == nil {
+//                                                    self.initOffsetY = newValue
+//                                                }
                                         }
                                 }
                             )
-                            
                         }
                         
                     }
-                    
+                    .refreshable {
+                        onRefresh()
+                    }
                 }
-                .position(x: screenGeometry.size.width/2, y: screenGeometry.size.height/2)
-                .alert(isPresented: $isPresented) { Alert(title: Text("Button tapped")) }
-                .statusBar(hidden: true)
                 
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Image(systemName: "chevron.down")
+                    }
+                }
             }
-        })
-        .shadow(radius: 10.0)
-        .onAppear {
-            self.offsetY = self.initOffsetY ?? 0.0
+            .position(x: screenGeometry.size.width/2, y: screenGeometry.size.height/2)
+            .alert(isPresented: $isPresented) { Alert(title: Text("Button tapped")) }
+            .statusBar(hidden: true)
         }
-        .navigationTitle("ddasd")
-        
     }
 }
-struct HeaderView: View {
-    
-    @Binding var isPresented: Bool
-    
-    var body: some View {
-        VStack(spacing: 20.0) {
-            
-            button(color: Color(UIColor.systemTeal))
-            
-            Text("Some text 1").bold()
-            
-            Text("Some text 2").bold()
-            
-            button(color: Color(UIColor.green))
-            
-            Text("Some text 3").bold()
-            
-            Text("Some text 4").bold()
-            
-            button(color: Color.purple)
-            
-        }
+
+// PreferenceKey를 사용하여 ScrollView의 offset을 추적
+struct OffsetKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
-    
-    func button(color: Color) -> some View {
-        
-        return Button(action: { isPresented.toggle() }, label: {
-            
-            Text("Start")
-                .bold()
-                .padding()
-                .shadow(radius: 10.0)
-                .frame(maxWidth: .infinity)
-                .background(color)
-                .foregroundColor(.white)
-                .cornerRadius(16)
-            
-        })
-        
-    }
-    
 }
 #Preview {
-    ContentView()
+    ContentView {
+        
+    }
 }

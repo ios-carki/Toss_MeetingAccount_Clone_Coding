@@ -11,7 +11,9 @@ import SwiftUI
 struct Toss_MeetingAccount_Clone_CodingApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView {
+                
+            }
         }
     }
 }
